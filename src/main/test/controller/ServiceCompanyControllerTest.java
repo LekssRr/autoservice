@@ -37,7 +37,7 @@ public class ServiceCompanyControllerTest {
         serviceCompanyDtoList.add(serviceCompanyDto2);
         serviceCompanyDtoList.add(serviceCompanyDto3);
         Mockito.when(serviceCompanyService.getAllServiceCompany()).thenReturn(serviceCompanyDtoList);
-        ResponseEntity<List<String>> responseEntity = new ResponseEntity(result, HttpStatus.OK);
+        ResponseEntity<String> responseEntity = new ResponseEntity(result.toString(), HttpStatus.OK);
         Assertions.assertEquals(serviceCompanyController.getAllServiceCompany(), responseEntity);
     }
 
@@ -55,7 +55,7 @@ public class ServiceCompanyControllerTest {
         stringList.add(autoDto2.toString());
         stringList.add(autoDto.toString());
         Mockito.when(serviceCompanyService.getAllVinToServiceCompany(autoDto.getNameServiceCompany())).thenReturn(autoDtoList);
-        ResponseEntity<List<String>> responseEntity = new ResponseEntity(stringList, HttpStatus.OK);
+        ResponseEntity<String> responseEntity = new ResponseEntity(stringList.toString(), HttpStatus.OK);
         Assertions.assertEquals(serviceCompanyController.getServiceCompany("SC-5"), responseEntity);
     }
 
