@@ -3,6 +3,10 @@ package ru.autoservice.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import ru.autoservice.dto.AutoDto;
+import ru.autoservice.dto.ServiceCompanyDto;
+import ru.autoservice.service.ServiceCompanyService;
+import ru.autoservice.service.ServiceCompanyServiceImpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,14 +15,26 @@ import java.util.stream.Collectors;
 @Controller()
 @RequestMapping("/servicecompany")
 public class ServiceCompanyController {
+
+    private final ServiceCompanyService serviceCompanyService;
+
+    public ServiceCompanyController()
+    {
+        serviceCompanyService = new ServiceCompanyServiceImpl();
+    }
+    public ServiceCompanyController(ServiceCompanyService newServiceCompanyService)
+    {
+        serviceCompanyService = newServiceCompanyService;
+    }
+
     @GetMapping()
-    public ResponseEntity<List<String>> getAllServiceCompany() {
-        List<String> result = new ArrayList<>();
+    public ResponseEntity<String> getAllServiceCompany() {
+        String result = null;
         try {
-//            List<ServiceCompanyDto> serviceCompany = serviceCompanyServiceImpl.getAllServiceCompany();
-//            result = serviceCompany.stream()
-//                    .map(ServiceCompanyDto::toString)
-//                    .collect(Collectors.toList());
+            List<ServiceCompanyDto> serviceCompany = serviceCompanyService.getAllServiceCompany();
+            result = serviceCompany.stream()
+                    .map(ServiceCompanyDto::toString)
+                    .collect(Collectors.toList()).toString();
             return ResponseEntity.ok(result);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(result);
@@ -26,13 +42,13 @@ public class ServiceCompanyController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<List<String>> getServiceCompany(@PathVariable String id) {
-        List<String> vinList = new ArrayList<>();
+    public ResponseEntity<String> getServiceCompany(@PathVariable String id) {
+        String vinList = null;
         try {
-//            vinList = serviceCompanyServiceImpl.getAllVinToServiceCompany(id)
-//                    .stream()
-//                    .map(AutoDto::toString)
-//                    .collect(Collectors.toList());
+            vinList = serviceCompanyService.getAllVinToServiceCompany(id)
+                    .stream()
+                    .map(AutoDto::toString)
+                    .collect(Collectors.toList()).toString();
             return ResponseEntity.ok(vinList);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(vinList);
@@ -43,7 +59,7 @@ public class ServiceCompanyController {
     public ResponseEntity<String> postServiceCompany(@PathVariable String id) {
         Boolean result = null;
         try {
-            //result = serviceCompanyServiceImpl.addServiceCompany(id);
+            result = serviceCompanyService.addServiceCompany(id);
             return ResponseEntity.ok(result.toString());
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Ошибка");
@@ -54,7 +70,7 @@ public class ServiceCompanyController {
     public ResponseEntity<String> deleteAllServiceCompany() {
         Boolean result = false;
         try {
-            //result = serviceCompanyServiceImpl.deleteAllServiceCompany();
+            result = serviceCompanyService.deleteAllServiceCompany();
             return ResponseEntity.ok(result.toString());
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Ошибка");
@@ -65,7 +81,7 @@ public class ServiceCompanyController {
     public ResponseEntity<String> deleteServiceCompany(@PathVariable String id) {
         Boolean result = false;
         try {
-            //result = serviceCompanyServiceImpl.deleteServiceCompany(id);
+            result = serviceCompanyService.deleteServiceCompany(id);
             return ResponseEntity.ok(result.toString());
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Ошибка");
@@ -73,10 +89,10 @@ public class ServiceCompanyController {
     }
 
     @PutMapping("/{oldSC}/{newSC}")
-    public ResponseEntity putServiceCompany(@PathVariable String oldSC, String newSc) {
+    public ResponseEntity<String> putServiceCompany(@PathVariable String oldSC, String newSc) {
         Boolean result = false;
         try {
-            //result = serviceCompanyServiceImpl.updateServiceCompany(oldSC, newSc);
+            result = serviceCompanyService.updateServiceCompany(oldSC, newSc);
             return ResponseEntity.ok(result.toString());
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Ошибка");

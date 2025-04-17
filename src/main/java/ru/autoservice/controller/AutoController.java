@@ -4,6 +4,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import ru.autoservice.dto.AutoDto;
+import ru.autoservice.service.AutoService;
+import ru.autoservice.service.AutoServiceImpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,14 +17,24 @@ import java.util.stream.Collectors;
 @RequestMapping("/auto")
 public class AutoController {
 
-    @GetMapping("/")
-    public ResponseEntity<List<String>> getAllAuto() {
-        List<String> result = new ArrayList<>();
+    private final AutoService autoService;
+
+    public AutoController()
+    {
+        autoService = new AutoServiceImpl();
+    }
+    public AutoController(AutoService newAutoService)
+    {
+        autoService = newAutoService;
+    }
+    @GetMapping()
+    public ResponseEntity<String> getAllAuto() {
+        String result = null;
         try {
-//            List<AutoDto> autoDtos = autoServiceImpl.getAllAuto();
-//            result = autoDtos.stream()
-//                    .map(AutoDto::toString)
-//                    .collect(Collectors.toList());
+            List<AutoDto> autoDtos = autoService.getAllAuto();
+            result = autoDtos.stream()
+                    .map(AutoDto::toString)
+                    .collect(Collectors.toList()).toString();
             return ResponseEntity.ok(result);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(result);
@@ -31,7 +44,7 @@ public class AutoController {
     @GetMapping("/{id}")
     public ResponseEntity<String> getAuto(@PathVariable String id) {
         try {
-            return ResponseEntity.badRequest().body("Ok"); //ResponseEntity.ok(autoServiceImpl.getAuto(id).toString());
+            return ResponseEntity.ok(autoService.getAuto(id).toString());
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Ошибка");
         }
@@ -40,7 +53,7 @@ public class AutoController {
     @PostMapping("/{id}/{sc}")
     public ResponseEntity<String> postAuto(@PathVariable String id, @PathVariable String sc) {
         try {
-            Boolean res = false; //autoServiceImpl.addAuto(id, sc);
+            Boolean res = autoService.addAuto(id, sc);
             return ResponseEntity.ok(res.toString());
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Ошибка");
@@ -51,7 +64,7 @@ public class AutoController {
     public ResponseEntity<String> deleteAllAuto() {
         String result = "Ошибка";
         try {
-            Boolean res = false;//autoServiceImpl.deleteAllAuto();
+            Boolean res = autoService.deleteAllAuto();
             return ResponseEntity.ok(res.toString());
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(result);
@@ -61,15 +74,15 @@ public class AutoController {
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteAuto(@PathVariable String id) {
         try {
-            Boolean result = false;//autoServiceImpl.deleteAuto(id);
+            Boolean result = autoService.deleteAuto(id);
             return ResponseEntity.ok(result.toString());
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Ошибка");
         }
     }
 
-    @PutMapping()
-    public ResponseEntity putAuto() {
+    @PutMapping("/{oldSC}/{newSC}")
+    public ResponseEntity<String> putAuto(@PathVariable String oldSC, @PathVariable String newSC) {
         try {
             return ResponseEntity.ok("PUT");
         } catch (Exception e) {

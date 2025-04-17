@@ -9,16 +9,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import ru.autoservice.controller.AutoController;
 import ru.autoservice.dto.AutoDto;
+import ru.autoservice.service.AutoService;
 import ru.autoservice.service.AutoServiceImpl;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class AutoControllerTest {
-    @Mock
-    private AutoServiceImpl autoServiceImpl = Mockito.mock(AutoServiceImpl.class);
-    @InjectMocks
-    private AutoController autoController = new AutoController();
+
+    private AutoService autoServiceImpl = Mockito.mock(AutoService.class);
+    private AutoController autoController = new AutoController(autoServiceImpl);
 
     @Test
     public void getAllAutoTest() {
@@ -34,7 +34,7 @@ public class AutoControllerTest {
         stringList.add(autoDto1.toString());
         stringList.add(autoDto2.toString());
         stringList.add(autoDto3.toString());
-        ResponseEntity<List<String>> responseEntity = new ResponseEntity<>(stringList, HttpStatus.OK);
+        ResponseEntity<String> responseEntity = new ResponseEntity<>(stringList.toString(), HttpStatus.OK);
         Assertions.assertEquals(autoController.getAllAuto(), responseEntity);
     }
 

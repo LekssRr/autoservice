@@ -5,6 +5,7 @@ import ru.autoservice.dto.AutoDto;
 import java.util.List;
 
 public class AutoServiceImpl implements AutoService{
+
     @Override
     public AutoDto getAuto(String vinCode) {
         return null;

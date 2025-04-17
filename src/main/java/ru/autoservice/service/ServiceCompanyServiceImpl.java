@@ -6,6 +6,7 @@ import ru.autoservice.dto.ServiceCompanyDto;
 import java.util.List;
 
 public class ServiceCompanyServiceImpl implements ServiceCompanyService{
+
     @Override
     public List<ServiceCompanyDto> getAllServiceCompany() {
         return null;
