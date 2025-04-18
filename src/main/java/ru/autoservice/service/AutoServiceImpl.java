@@ -21,11 +21,13 @@ public class AutoServiceImpl implements AutoService{
 
     private final AutoRepository autoRepository;
     private final ServiceCompanyRepository serviceCompanyRepository;
+
     @Autowired
     public AutoServiceImpl(AutoRepository autoRepository, ServiceCompanyRepository serviceCompanyRepository) {
         this.autoRepository = autoRepository;
         this.serviceCompanyRepository = serviceCompanyRepository;
     }
+
 
     @Override
     public AutoDto getAuto(String vinCode) {

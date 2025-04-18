@@ -17,14 +17,10 @@ import java.util.stream.Collectors;
 @RequestMapping("/auto")
 public class AutoController {
 
-    private AutoService autoService;
+    private final AutoService autoService;
 
-    public AutoController()
-    {
-    }
-    public AutoController(AutoService newAutoService)
-    {
-        autoService = newAutoService;
+    public AutoController(AutoService autoService) {
+       this.autoService = autoService;
     }
     @GetMapping()
     public ResponseEntity<String> getAllAuto() {
