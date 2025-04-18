@@ -16,11 +16,11 @@ import java.util.stream.Collectors;
 @RequestMapping("/servicecompany")
 public class ServiceCompanyController {
 
-    private final ServiceCompanyService serviceCompanyService;
+    private ServiceCompanyService serviceCompanyService;
 
     public ServiceCompanyController()
     {
-        serviceCompanyService = new ServiceCompanyServiceImpl();
+
     }
     public ServiceCompanyController(ServiceCompanyService newServiceCompanyService)
     {

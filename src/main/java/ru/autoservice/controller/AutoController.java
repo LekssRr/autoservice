@@ -17,11 +17,10 @@ import java.util.stream.Collectors;
 @RequestMapping("/auto")
 public class AutoController {
 
-    private final AutoService autoService;
+    private AutoService autoService;
 
     public AutoController()
     {
-        autoService = new AutoServiceImpl();
     }
     public AutoController(AutoService newAutoService)
     {
