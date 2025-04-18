@@ -60,6 +60,8 @@ public class AutoServiceImpl implements AutoService{
                     return autoEntity.getServiceCompany().getNameServiceCompany().equals(nameServiceCompany);
                 })
                 .collect(Collectors.toList());
+
+
         return this.convertAutoEntityToAutoDto(listEntity);
     }
 

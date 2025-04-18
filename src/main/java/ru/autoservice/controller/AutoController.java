@@ -1,5 +1,6 @@
 package ru.autoservice.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -13,15 +14,16 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 
-@Controller()
+@RestController()
 @RequestMapping("/auto")
 public class AutoController {
 
     private final AutoService autoService;
-
+    @Autowired
     public AutoController(AutoService autoService) {
        this.autoService = autoService;
     }
+
     @GetMapping()
     public ResponseEntity<String> getAllAuto() {
         String result = null;

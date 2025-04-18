@@ -1,5 +1,6 @@
 package ru.autoservice.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -12,20 +13,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Controller()
+@RestController()
 @RequestMapping("/servicecompany")
 public class ServiceCompanyController {
 
-    private ServiceCompanyService serviceCompanyService;
-
-    public ServiceCompanyController()
-    {
-
+    private final ServiceCompanyService serviceCompanyService;
+    @Autowired
+    public ServiceCompanyController(ServiceCompanyService serviceCompanyService) {
+        this.serviceCompanyService = serviceCompanyService;
     }
-    public ServiceCompanyController(ServiceCompanyService newServiceCompanyService)
-    {
-        serviceCompanyService = newServiceCompanyService;
-    }
+
 
     @GetMapping()
     public ResponseEntity<String> getAllServiceCompany() {
