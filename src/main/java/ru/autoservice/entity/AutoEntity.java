@@ -1,10 +1,16 @@
 package ru.autoservice.entity;
 
-//@Entity
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "Auto")
 public class AutoEntity {
-    //@Id
+    @Id
     private String vinCode;
-    //@ManyToOne
+    @ManyToOne
     private ServiceCompanyEntity serviceCompany;
 
     public AutoEntity(String newVinCode, ServiceCompanyEntity newServiceCompany) {

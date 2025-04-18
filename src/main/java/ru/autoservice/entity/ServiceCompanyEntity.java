@@ -1,15 +1,17 @@
 package ru.autoservice.entity;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-//@Entity
+@Entity
+@Table(name = "ServiceCompany")
 public class ServiceCompanyEntity {
-    //@Id
+    @Id
     private String nameServiceCompany;
-    //@OneToMany(mappedBy = "serviceCompany" , cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "serviceCompany" , cascade = CascadeType.PERSIST)
     private List<AutoEntity> autoEntities;
 
     public ServiceCompanyEntity(String newNameServiceCompany)
