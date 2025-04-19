@@ -3,13 +3,15 @@ package repository;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.testcontainers.containers.PostgreSQLContainer;
 
 public class AutoRepositoryTest {
+
     static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>(
             "postgres:16-alpine"
     );
-
+    
     @BeforeAll
     static void beforeAll() {
         postgres.start();

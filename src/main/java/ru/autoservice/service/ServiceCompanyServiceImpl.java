@@ -40,10 +40,13 @@ public class ServiceCompanyServiceImpl implements ServiceCompanyService{
     public List<AutoDto> getAllVinToServiceCompany(String nameServiceCompany) {
         List<AutoDto> result = new ArrayList<>();
         if (!serviceCompanyRepository.findById(nameServiceCompany).isPresent()) {
-            List<AutoEntity> autoEntities = serviceCompanyRepository.findById(nameServiceCompany).get().getAutoEntities();
-            for (int i = 0; i <= autoEntities.size() - 1; i++) {
-                result.add(new AutoDto(autoEntities.get(i).getVinCode(), autoEntities.get(i).getServiceCompany().getNameServiceCompany()));
-            }
+
+            result = serviceCompanyRepository.findById(nameServiceCompany).get().getAutoEntities()
+                    .stream()
+                    .map(autoEntity -> {
+                        return new AutoDto(autoEntity.getVinCode(), autoEntity.getServiceCompany().getNameServiceCompany());
+                    })
+                    .collect(Collectors.toList());
         }
         return result;
     }

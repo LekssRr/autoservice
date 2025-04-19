@@ -48,21 +48,25 @@ public class AutoServiceImpl implements AutoService{
 
     @Override
     public List<AutoDto> getAllAuto() {
-        List<AutoEntity> autoEntities = autoRepository.findAll();
-        return this.convertAutoEntityToAutoDto(autoEntities);
+        return autoRepository.findAll()
+                .stream()
+                .map(autoEntity -> {
+                    return new AutoDto(autoEntity.getVinCode(), autoEntity.getServiceCompany().getNameServiceCompany());
+                })
+                .collect(Collectors.toList());
     }
 
     @Override
     public List<AutoDto> getAllAutoToServiceCompany(String nameServiceCompany) {
-        List<AutoEntity> listEntity = autoRepository.findAll()
+        return autoRepository.findAll()
                 .stream()
                 .filter(autoEntity -> {
                     return autoEntity.getServiceCompany().getNameServiceCompany().equals(nameServiceCompany);
                 })
+                .map(autoEntity -> {
+                    return new AutoDto(autoEntity.getVinCode(), autoEntity.getServiceCompany().getNameServiceCompany());
+                })
                 .collect(Collectors.toList());
-
-
-        return this.convertAutoEntityToAutoDto(listEntity);
     }
 
     @Override
@@ -130,13 +134,7 @@ public class AutoServiceImpl implements AutoService{
         }
         return false;
     }
-    private List<AutoDto> convertAutoEntityToAutoDto(List<AutoEntity> autoEntities) {
-        List<AutoDto> result = new ArrayList<>();
-        for (int i = 0; i <= autoEntities.size() - 1; i++) {
-            result.add(new AutoDto(autoEntities.get(i).getVinCode(), autoEntities.get(i).getServiceCompany().getNameServiceCompany()));
-        }
-        return result;
-    }
+
     private boolean isCurrentVin(String vinCode) {
         return vinCode.length() == 17;
     }
