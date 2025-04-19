@@ -81,7 +81,7 @@ public class AutoController {
     @PutMapping("/{oldSC}/{newSC}")
     public ResponseEntity<String> putAuto(@PathVariable String oldSC, @PathVariable String newSC) {
         try {
-            return ResponseEntity.ok("PUT");
+            return ResponseEntity.ok(autoService.updateAuto(oldSC, newSC).toString());
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Ошибка");
         }
