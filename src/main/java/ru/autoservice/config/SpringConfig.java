@@ -75,12 +75,6 @@ public class SpringConfig implements WebMvcConfigurer {
     public DataSource dataSource() {
         EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
         return builder.setType(EmbeddedDatabaseType.HSQL).build();
-//        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-//        dataSource.setDriverClassName(env.getRequiredProperty("hibernate.driver_class"));
-//        dataSource.setUrl(env.getRequiredProperty("hibernate.connection.url"));
-//        dataSource.setUsername(env.getRequiredProperty("hibernate.connection.username"));
-//        dataSource.setPassword(env.getRequiredProperty("hibernate.connection.password"));
-//        return dataSource;
     }
 
     private Properties hibernateProperties() {
