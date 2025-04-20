@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
-public class AutoServiceImpl implements AutoService{
+public class AutoServiceImpl implements AutoService {
 
     private final AutoRepository autoRepository;
     private final ServiceCompanyRepository serviceCompanyRepository;

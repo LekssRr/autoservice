@@ -16,11 +16,13 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-
+@Service
 @Transactional(readOnly = true)
-public class ServiceCompanyServiceImpl implements ServiceCompanyService{
+public class ServiceCompanyServiceImpl implements ServiceCompanyService {
     private final ServiceCompanyRepository serviceCompanyRepository;
     private final AutoRepository autoRepository;
+
+    @Autowired
     public ServiceCompanyServiceImpl(ServiceCompanyRepository serviceCompanyRepository, AutoRepository autoRepository) {
         this.serviceCompanyRepository = serviceCompanyRepository;
         this.autoRepository = autoRepository;
@@ -81,8 +83,7 @@ public class ServiceCompanyServiceImpl implements ServiceCompanyService{
     @Override
     @Transactional
     public Boolean updateServiceCompany(String oldSc, String newSC) {
-        if(!this.serviceCompanyRepository.findById(oldSc).isPresent())
-        {
+        if (!this.serviceCompanyRepository.findById(oldSc).isPresent()) {
             ServiceCompanyEntity serviceCompanyEntities = serviceCompanyRepository.findById(oldSc).get();
             serviceCompanyRepository.save(new ServiceCompanyEntity(newSC));
             List<AutoEntity> autoEntityList = autoRepository.findAll()
@@ -90,12 +91,10 @@ public class ServiceCompanyServiceImpl implements ServiceCompanyService{
                     .filter(autoEntity -> autoEntity.getServiceCompany().getNameServiceCompany().equals(oldSc))
                     .collect(Collectors.toList());
             serviceCompanyRepository.deleteById(oldSc);
-            for(int i = 0; i<=autoEntityList.size()-1; i++)
-            {
+            for (int i = 0; i <= autoEntityList.size() - 1; i++) {
                 autoRepository.deleteById(autoEntityList.get(i).getVinCode());
             }
-            for(int i = 0; i<=autoEntityList.size()-1; i++)
-            {
+            for (int i = 0; i <= autoEntityList.size() - 1; i++) {
                 autoEntityList.get(i).setServiceCompany(new ServiceCompanyEntity(newSC));
                 autoRepository.save(autoEntityList.get(i));
             }
@@ -103,6 +102,7 @@ public class ServiceCompanyServiceImpl implements ServiceCompanyService{
         }
         return false;
     }
+
     private Set<String> namesServiceCompany() {
         List<ServiceCompanyDto> serviceCompanyDtoList = this.getAllServiceCompany();
         Set<String> nameServiceCompanySet = new HashSet<>();
