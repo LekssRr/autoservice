@@ -36,7 +36,7 @@ public class AutoDto {
         } else if (this.hashCode() == o.hashCode()) {
             if (this.getClass() == o.getClass()) {
                 AutoDto a = (AutoDto) o;
-                if (this.vinCode.equals(((AutoDto) o).getVinCode()) & this.serviceCompany.equals(((AutoDto) o).getNameServiceCompany())) {
+                if (this.vinCode.equals(a.getVinCode()) & this.serviceCompany.equals((a).getNameServiceCompany())) {
                     return true;
                 }
             }
