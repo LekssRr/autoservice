@@ -1,5 +1,6 @@
 package ru.autoservice.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.autoservice.dto.AutoDto;
@@ -20,7 +21,6 @@ import java.util.stream.Collectors;
 public class ServiceCompanyServiceImpl implements ServiceCompanyService{
     private final ServiceCompanyRepository serviceCompanyRepository;
     private final AutoRepository autoRepository;
-
     public ServiceCompanyServiceImpl(ServiceCompanyRepository serviceCompanyRepository, AutoRepository autoRepository) {
         this.serviceCompanyRepository = serviceCompanyRepository;
         this.autoRepository = autoRepository;
