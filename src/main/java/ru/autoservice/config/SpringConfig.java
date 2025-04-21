@@ -30,7 +30,6 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
-@ComponentScan("ru.autoservice")
 @PropertySource("classpath:hibernate.properties")
 @EnableTransactionManagement
 @EnableJpaRepositories("ru.autoservice.repository")
