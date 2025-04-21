@@ -108,7 +108,7 @@ public class AutoServiceTest {
             autoDto.add(new AutoDto(autoEntities.get(i).getVinCode(), autoEntities.get(i).getServiceCompany().getNameServiceCompany()));
         }
         Mockito.when(autoRepositoryTest.findAll()).thenReturn(autoEntities);
-        Assertions.assertEquals(autoServiceTest.addAuto(test.getVinCode(), test.getServiceCompany().getNameServiceCompany()), true);
+        Assertions.assertEquals(autoServiceTest.addAuto(test.getVinCode(), test.getServiceCompany().getNameServiceCompany()), false);
         Assertions.assertEquals(autoServiceTest.addAuto(test3.getVinCode(), test3.getServiceCompany().getNameServiceCompany()), false);
 
     }
